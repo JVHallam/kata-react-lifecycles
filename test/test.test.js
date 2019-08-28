@@ -37,7 +37,9 @@ describe("Testing the Kata Components will mount", () => {
 
     const wrapper = mount( <KataComponent connection={connection}/> );
 
-    setTimeout( () => {
+    console.log( wrapper.debug() );
+
+    process.nextTick( () => {
       wrapper.update();
       console.log("End of test function");
       console.log(wrapper.debug());
