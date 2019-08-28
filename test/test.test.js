@@ -1,48 +1,47 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import KataComponent from "../src/kataComponent.js";
+import Enzyme, { shallow, mount } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
-/*
-  props :
-    cleanup : 
-      () => {}
-*/
-class TestComponent extends React.Component{
-  constructor(){
-    super();
-    console.log("Component desu!");
-  }
+Enzyme.configure({ adapter : new Adapter() });
 
-  componentWillUnmount(){
-    console.log("COMPONENT OUTO!");
-    this.props.cleanup();
-  };
+describe("Testing the Kata Components will mount", () => {
+  it("Test from earlier today", async () => {
+    //jest.useFakeTimers();
 
-  render(){
-    return ( 
-      <div>
-        This is the test component!
-      </div>
-    );
-  }
-};
+    const wrapper = mount( <KataComponent /> );
 
-describe("This is the first suite", () => {
-  it("This is the first test!", () => {
+    //await jest.runOnlyPendingTimers();
+    
+    await wrapper.instance().componentDidUpdate();
 
+    console.log("End of the function");
+  });
+  /*
+    What i want to do:  
+    * Have a component make an api call
+    * Check the components state after the api call
+    * clearly need to take a new approach
 
-    const mockCallback = jest.fn( x => x + 1 );
+    DRAW OUT THE ENTIRE SITUATION BEFORE YOU DO ANYMORE!
+  */
 
-    const { container, unmount } = render(
-      <TestComponent cleanup={ mockCallback } /> 
-    );
+  it("This is another attempt, using done", done => {
+    console.log("===============");
+    const connection = {
+      getUser : async () => {
+        console.log("Get user function called!");
+        return "Username";
+      }
+    };
 
-    expect( container ).not.toBe( null );
+    const wrapper = mount( <KataComponent connection={connection}/> );
 
-    expect( mockCallback.mock.calls.length ).toBe( 0 );
-
-    unmount();
-
-    expect( mockCallback.mock.calls.length ).toBe( 1 );
-
+    setTimeout( () => {
+      wrapper.update();
+      console.log("End of test function");
+      console.log(wrapper.debug());
+      done();
+    });
   });
 });

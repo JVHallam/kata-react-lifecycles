@@ -20,6 +20,13 @@ packages and setup:
   * webpack-dev-server
   * jest
 
+* i had issues, so i was trying enzyme:
+  * enzyme
+  * enzyme-adapter-react-16
+
+using enzyme:
+* put the enzyme imports at the top of the file
+* imported the enzyme adaptor too
 
 files:
 * main test file
