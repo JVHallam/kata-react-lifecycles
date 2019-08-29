@@ -7,3 +7,8 @@ componentDidMount:
   * make a call to the network
   * update the component state with the data from the call
 
+functional components:
+  useEffect is :
+  * didMount
+  * didUpdate
+  * willUnmount

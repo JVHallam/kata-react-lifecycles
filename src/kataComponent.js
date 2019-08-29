@@ -3,37 +3,70 @@ import React, { Component } from "react";
 /*
   props:
     connection : {
-      this is an object, with methods, through which, the user will make calls to the service with.
+      //To be called to fetch the initial details of the user
+      fetchDetails : async ( sessionId ) => { returns username }
 
-      getUser = async () => {}
+      //To be called when the component unmounts
+      cleanup : async( sessionId ) => { }
     }
+
+    sessionId : string ( The id of the current users session )
+
+  children :
+
 */
 export default class KataComponent extends Component{
   constructor(){
     super();
-    this.state = { username : null }
+    this.state = { 
+      username : null,
+      message : "You're not yet logged in",
+      didCatch : false
+    }
   }
 
   componentDidMount(){
-    console.log("Component Did Mount!");
+    this.setState({ message : "Logging you in now" });
 
-    this.props.connection.getUser()
+    this.props.connection.fetchDetails( this.props.sessionId )
       .then( username => {
-        console.log("Component did mount update!");
         this.setState({ username });
+        this.setState({ message : `Hello ${username}`});
       });
+
   }
 
-  componentDidUpdate(){
-    console.log("Component Did update!");
+  componentDidUpdate( prevProps, prevState, snapshot ){
+  }
+
+  componentWillUnmount(){
+    //Do the cleanup
+    this.props.connection.cleanup( this.props.sessionId );
+  }
+
+  static getDerivedStateFromError( error ){
+    console.log("Getting derived state");
+    return {
+      message : "There was a problem rendering the children",
+      didCatch : true
+    }
+  }
+
+  componentDidCatch( error, info ){
+    console.log("Component did catch");
   }
 
   render(){
-    const message = this.state.username ? `Hello! ${ this.state.username }` : `You're not logged in!`;
+    const childSection = this.state.didCatch ? null : this.props.children;
+
     return (
       <div> 
         <div>
-          <p id="message"> { message } </p>
+          <p id="message"> { this.state.message } </p>
+        </div>
+        <div>
+          <p> these are the children </p>
+          { childSection }
         </div>
       </div>
     );
@@ -42,10 +75,9 @@ export default class KataComponent extends Component{
 
 KataComponent.defaultProps = {
   connection : {
-    getUser : async () => {
-      return await new Promise( resolve => {
-        setTimeout( () => resolve( "Retrieved Username"), 1000 );
-      });
-    } 
-  }
+    cleanup : async ( sessionId ) => { },
+    fetchDetails : async ( sessionId ) => null
+  },
+
+  username : null
 }

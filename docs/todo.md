@@ -37,9 +37,20 @@ files:
 * A readme explaining the packages that need to be installed globally to use the project
 
 todo:
+* Get the readme written
+* Get a guide written, alongside the entire situation
+* Get a test situation for each of the following methods:
+  * basic initial render
+  * componentDidMount, then a re-render  
+  * componentShouldUpdate
+  * get a list of all the methods, and how they should be used, from the official docs and write tests for each one
+
+* Write a higher order component that'll run the same test-like situations in the browser
+
+* try and get this shit going with react hooks!
+
+done:
 * Get jest running the test library
 * Get webpack running
-* Get the readme written
 * Get the components set up to work
 * Start getting testable situations up and written
-* Get a guide written, alongside the entire situation
