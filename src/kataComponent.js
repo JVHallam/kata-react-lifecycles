@@ -25,7 +25,8 @@ export default class KataComponent extends Component{
     this.state = { 
       username : null,
       message : "You're not yet logged in",
-      didCatch : false
+      didCatch : false,
+      error : null
     }
   }
 
@@ -46,24 +47,25 @@ export default class KataComponent extends Component{
   }
 
   static getDerivedStateFromError( error ){
-    console.log("Getting derived state");
+    console.log(error)
     return {
-      message : error,
+      error : error,
       didCatch : true
     }
   }
 
   componentDidCatch( error, info ){
-    console.log("Component did catch");
     this.props.connection.reportError( error );
   }
 
   render(){
     const childSection = this.state.didCatch ? null : this.props.children;
+    const message = this.state.didCatch ? this.state.error : this.state.message;
+    console.log( this.state );
 
     return (
       <div> 
-        <p id="message"> { this.state.message } </p>
+        <p id="message"> { message } </p>
         <div>
           { childSection }
         </div>

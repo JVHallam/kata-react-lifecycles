@@ -70,3 +70,10 @@ methods required:
 </div>
 
 * no children should be rendered when there's an error.
+
+* message should display the following in the following circumstances:
+  * "logging in" when the users details are being fetched from fetchDetails
+  * `Hello ${username}`, where username is what's returned from fetchDetails
+  * If a child component throws an error, that error should be displayed instead
+
+* All children of the component should be displayed

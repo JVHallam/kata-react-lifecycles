@@ -3,10 +3,6 @@ import KataComponent from "../src/kataComponent.js";
 import Enzyme, { shallow, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-import FunctionalComponent from "../src/functionalComp.js";
-
-import { act } from "react-dom/test-utils";
-
 Enzyme.configure({ adapter : new Adapter() });
 
 const KataWrapper = () => {
@@ -20,13 +16,19 @@ const KataWrapper = () => {
   );
 };
 
+const ProblemGen = () => {
+  return (
+    <div>
+      ProblemGenerator
+    </div>
+  );
+};
+
 describe("Testing the Kata Components will mount", () => {
   it("Check that the basic component renders", () => {
     const wrapper = mount( <KataWrapper /> );
     const message = wrapper.find('#message');
     expect( message ).not.toBe( null );
-
-    console.log(`Current message : ${message.text()}`);
     expect( message.text() ).toMatch( /logging/i );
   });
 
@@ -58,8 +60,8 @@ describe("Testing the Kata Components will mount", () => {
       const message = wrapper.find('#message');
 
       expect( message.text() ).toMatch( new RegExp(username) );
+      expect( message.text() ).not.toMatch( /logging/ );
 
-      console.log(message.text());
       done();
     });
   });
@@ -76,7 +78,6 @@ describe("Testing the Kata Components will mount", () => {
     process.nextTick( () => {
       wrapper.unmount();
       expect( connection.cleanup.mock.calls.length ).toBe( 1 );
-      console.log("Cleanup!");
       done();  
     });
   });
@@ -92,9 +93,7 @@ describe("Testing the Kata Components will mount", () => {
 
     const testChild = wrapper.find("#test-child");
     expect( wrapper.find("#test-4").length ).toBe( 0 );
-    console.log( wrapper.find("#p") );
 
-    console.log( wrapper.debug() );
 
     expect( testChild.length ).toBe( 1 );
   });
@@ -106,19 +105,10 @@ describe("Testing the Kata Components will mount", () => {
       fetchDetails : async () => "John",
       cleanup : async() => {},
       reportError : ( error ) => {
-        console.log("Report Error");
         expect(1).toBe(1);
-        console.log( error );
       }
     };    
 
-    const ProblemGen = () => {
-      return (
-        <div>
-          ProblemGenerator
-        </div>
-      );
-    };
 
     const wrapper = mount(
       <KataComponent connection={connection}>
@@ -127,11 +117,9 @@ describe("Testing the Kata Components will mount", () => {
     );
 
     const child = wrapper.find( ProblemGen );
-
     child.simulateError( errorMessage );
 
     process.nextTick( () => {
-      console.log("Next tick");
       done();
     });
   });
@@ -154,7 +142,28 @@ describe("Testing the Kata Components will mount", () => {
   });
 
   it("Expect the element to display the error, when an error is thrown", ( done ) => {
-    //Check that the message updates to contain the error
-    expect( "test" ).toBe( "implemented" );
+    const errorMessage = "This is my error message!";
+
+    const connection = {
+      reportError : jest.fn( async () => {}),
+      cleanup : jest.fn( async () => {} ),
+      fetchDetails : jest.fn( async () => {} )
+    };
+    
+    const wrapper = mount(
+      <KataComponent>
+        <ProblemGen />
+      </KataComponent>
+    );
+
+    const child = wrapper.find( ProblemGen );
+    child.simulateError( errorMessage );
+
+    process.nextTick( () => {
+      console.log("Next tick");
+      const message = wrapper.find( "#message" ).text();
+      expect( message ).toMatch( new RegExp( errorMessage ) );
+      done();
+    });
   });
 });
