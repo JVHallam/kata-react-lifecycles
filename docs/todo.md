@@ -7,8 +7,3 @@ todo:
 
 ## rendering situations to the browser:
 
-* Check that the cleanup is called on dismount
-
-* Component reports any error during rendering to the server
-* Component doesn't call for a report, if there were no errors during rendering
-* Expect the element to display the error, when an error is thrown

@@ -47,10 +47,11 @@ export default class KataComponent extends Component{
   }
 
   static getDerivedStateFromError( error ){
-    console.log(error)
     return {
       error : error,
-      didCatch : true
+      didCatch : true,
+      message : "There was an error",
+      username : null
     }
   }
 
@@ -60,7 +61,18 @@ export default class KataComponent extends Component{
 
   render(){
     const childSection = this.state.didCatch ? <div> There was an error, no children here </div> : this.props.children;
-    const message = this.state.didCatch ? this.state.error : this.state.message;
+    const message = this.state.didCatch ? this.state.error.message : this.state.message;
+
+    if( this.state.didCatch ){
+      return (
+        <div>
+          Oops, something went wrong with the rendering process
+          { childSection }
+          { message }
+        </div>
+      );
+    }
+
     return (
       <div> 
         <p id="message"> { message } </p>

@@ -45,11 +45,12 @@ methods required:
 * you're returning an object that's shallowly merged with the component state
 * return the error, to be rendered
 * also set anything that will update the object state to say "There has been an error", the flag, whatever.
+* The error here is an error object. To get the message, you .message
 
-
-## componentDidCatch
+## componentDidCatch( error, info )
 * This is where mutations and side effects are handled
 * call the error reporting service
+* The error here is the error message, as opposed to the full on message
 
 ## contructor
 * setup the state

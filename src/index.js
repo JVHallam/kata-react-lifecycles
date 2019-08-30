@@ -23,6 +23,36 @@ function createMockConnection( testName ){
   };
 };
 
+class ErrorBoundary extends React.Component{
+  constructor(){
+    super();
+    this.state = {
+      hasError : false 
+    }
+  }
+
+   static getDerivedStateFromError( error ){
+    return { hasError : true };
+  }
+
+  render(){
+    if( this.state.hasError ){
+      return (
+        <div>
+          You haven't handled the error correctly!
+          Try properly implementing error boundaries on your component
+        </div>
+      )
+    }
+    
+    return (
+      <React.Fragment>
+        { this.props.children }
+      </React.Fragment>
+    );
+  }
+};
+
 const TestOne = () => {
   return (
     <React.Fragment>
@@ -45,15 +75,43 @@ const TestTwo = () => {
 class TestThree extends React.Component{
   constructor(){
     super();
+    this.state = {
+      shouldMount : true,
+      wasCleanupCalled : false,
+      toggleId : null
+    }
+  };
+
+  componentDidMount(){
+    const toggleId = setInterval(() => {
+      this.setState({ 
+        shouldMount : !this.state.shouldMount,
+        wasCleanupCalled : false
+      });
+    }, 2000);
+
+    this.setState({ toggleId });
+  }
+
+  componentWillUnmount(){
+    clearInterval( this.state.toggleId );
   };
 
   render(){
-    const connection = createMockConnection("Test Three");
+      const connection = createMockConnection("Test Three");
+
+    const actualConnection = {
+      ...connection,
+      cleanup : async () => {
+        this.setState({ wasCleanupCalled : true });
+      }
+    };
 
     return (
       <React.Fragment>
         <p> This component needs to be constantly mounting and unmounting the component </p>
-        <KataComponent connection={connection} />
+        <p> was cleanup called : { this.state.wasCleanupCalled ? "Yes" : "No" } </p>
+        { this.state.shouldMount ?  <KataComponent connection={actualConnection} /> : <div> Component Unmounted </div> }
       </React.Fragment>
     );
   }
@@ -90,9 +148,11 @@ const TestFive = () => {
   return (
     <React.Fragment>
       <p> Test Five : Component can report errors from children to the server </p>
-      <KataComponent connection={connection}>
-        <ProblemChild />
-      </KataComponent>
+      <ErrorBoundary>
+        <KataComponent connection={connection}>
+          <ProblemChild />
+        </KataComponent>
+      </ErrorBoundary>
     </React.Fragment>
   );
 };

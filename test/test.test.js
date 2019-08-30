@@ -160,7 +160,6 @@ describe("Testing the Kata Components will mount", () => {
     child.simulateError( errorMessage );
 
     process.nextTick( () => {
-      console.log("Next tick");
       const message = wrapper.find( "#message" ).text();
       expect( message ).toMatch( new RegExp( errorMessage ) );
       done();
