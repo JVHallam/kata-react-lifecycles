@@ -59,10 +59,8 @@ export default class KataComponent extends Component{
   }
 
   render(){
-    const childSection = this.state.didCatch ? null : this.props.children;
+    const childSection = this.state.didCatch ? <div> There was an error, no children here </div> : this.props.children;
     const message = this.state.didCatch ? this.state.error : this.state.message;
-    console.log( this.state );
-
     return (
       <div> 
         <p id="message"> { message } </p>
