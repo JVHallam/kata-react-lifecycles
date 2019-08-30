@@ -8,11 +8,15 @@ import React, { Component } from "react";
 
       //To be called when the component unmounts
       cleanup : async( sessionId ) => { }
+
+      //Want to report errors to the service
+      reportError : async( error ) => { }
     }
 
     sessionId : string ( The id of the current users session )
 
   children :
+    Should render children
 
 */
 export default class KataComponent extends Component{
@@ -36,9 +40,6 @@ export default class KataComponent extends Component{
 
   }
 
-  componentDidUpdate( prevProps, prevState, snapshot ){
-  }
-
   componentWillUnmount(){
     //Do the cleanup
     this.props.connection.cleanup( this.props.sessionId );
@@ -47,13 +48,14 @@ export default class KataComponent extends Component{
   static getDerivedStateFromError( error ){
     console.log("Getting derived state");
     return {
-      message : "There was a problem rendering the children",
+      message : error,
       didCatch : true
     }
   }
 
   componentDidCatch( error, info ){
     console.log("Component did catch");
+    this.props.connection.reportError( error );
   }
 
   render(){
@@ -61,11 +63,8 @@ export default class KataComponent extends Component{
 
     return (
       <div> 
+        <p id="message"> { this.state.message } </p>
         <div>
-          <p id="message"> { this.state.message } </p>
-        </div>
-        <div>
-          <p> these are the children </p>
           { childSection }
         </div>
       </div>
@@ -76,7 +75,8 @@ export default class KataComponent extends Component{
 KataComponent.defaultProps = {
   connection : {
     cleanup : async ( sessionId ) => { },
-    fetchDetails : async ( sessionId ) => null
+    fetchDetails : async ( sessionId ) => null,
+    reportError : async ( error ) => null
   },
 
   username : null

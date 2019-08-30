@@ -99,28 +99,62 @@ describe("Testing the Kata Components will mount", () => {
     expect( testChild.length ).toBe( 1 );
   });
 
-  it("Component can handle a child that throws an error", () => {
-    const ProblemChild = () => {
-      throw new Error("This is from the problem child");
+  it("Component reports any error during rendering to the server", done => {
+    const errorMessage = "This is the error";
 
+    const connection = {
+      fetchDetails : async () => "John",
+      cleanup : async() => {},
+      reportError : ( error ) => {
+        console.log("Report Error");
+        expect(1).toBe(1);
+        console.log( error );
+      }
+    };    
+
+    const ProblemGen = () => {
       return (
         <div>
-          This will never render
+          ProblemGenerator
         </div>
       );
     };
 
-    const Wrapper = mount(
-      <KataComponent>
-        <ProblemChild />
+    const wrapper = mount(
+      <KataComponent connection={connection}>
+        <ProblemGen />
       </KataComponent>
     );
+
+    const child = wrapper.find( ProblemGen );
+
+    child.simulateError( errorMessage );
+
+    process.nextTick( () => {
+      console.log("Next tick");
+      done();
+    });
   });
 
-  /*
-    Tests to write:
-      Check that it can handle errors form children?!
-      Check that it can handle errors from the login service
-  */
+  it("Component doesn't call for a report, if there were no errors during rendering", ( done ) => {
+    const connection = {
+      reportError : jest.fn( async () => {}),
+      cleanup : jest.fn( async () => {} ),
+      fetchDetails : jest.fn( async () => {} )
+    };
 
+    const wrapper = mount( <KataComponent connection={connection} /> );
+
+    expect( connection.cleanup.mock.calls.length ).toBe( 0 );
+
+    process.nextTick( () => {
+      expect( connection.cleanup.mock.calls.length ).toBe( 0 );
+      done();
+    });
+  });
+
+  it("Expect the element to display the error, when an error is thrown", ( done ) => {
+    //Check that the message updates to contain the error
+    expect( "test" ).toBe( "implemented" );
+  });
 });
