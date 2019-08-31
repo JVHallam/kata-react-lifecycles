@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry : "./src/index.js",
+  entry : "./src/webapp/index.js",
 
   output : {
     path : path.join( __dirname, "dist" ),
@@ -27,7 +27,7 @@ module.exports = {
 
   plugins : [
     new HtmlWebpackPlugin({
-      template: "./src/index.html"
+      template: "./src/webapp/index.html"
     })
   ],
 

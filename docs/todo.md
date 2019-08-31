@@ -1,8 +1,11 @@
 packages and setup:
 todo:
-* Get the readme written
-* Do the do, delete the component and try from scratch to do your own exercises!
 * Get a web rendering component that shows the error handling
+  * Handling getDerivedStateFromError
+
+* src/webapp/index.js
+  * Is there a more elegant way to handle the pathing to get the kataComponent?
+  * Is dependancy injection worth using here, or is it just an anti pattern?
 
 * clean up the index.js code:
   * put the app component into it's own file
@@ -19,5 +22,3 @@ todo:
 * try to encorporate more of the react functions
   * React.children.map( children, () => {} );
     * Wrap each child in an li or someshit, rendering that shit into a list
-
-

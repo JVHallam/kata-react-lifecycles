@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css"
 
-import KataComponent from "./kataComponent.js";
+import KataComponent from "../kataComponent.js";
+import App from "./components/App.js";
 
 function createMockConnection( testName ){
   return {
@@ -51,40 +52,6 @@ class ErrorBoundary extends React.Component{
         { this.props.children }
       </React.Fragment>
     );
-  }
-};
-
-class GenericErrorBoundary extends React.Component{
-  constructor(){
-    super();
-    this.state = {
-      hasError : false,
-      error : null
-    }
-  }
-
-  static getDerivedStateFromError( error ){
-    return { 
-      hasError : true,
-      error : error.message
-    }
-  }
-
-  render(){
-    if( this.state.hasError ){
-      return ( 
-        <div className="child-wrapper">
-          <p>
-            Oops, something went wrong with your component:
-          </p>
-          <p>
-            { this.state.error }
-          </p>
-        </div>
-      );
-    }
-
-    return ( this.props.children );
   }
 };
 
@@ -191,24 +158,6 @@ const TestFive = () => {
         </KataComponent>
       </ErrorBoundary>
     </React.Fragment>
-  );
-};
-
-const App = ( { children } ) => {
-  const childrenSection = React.Children.map( children, child => {
-    return (
-      <GenericErrorBoundary>
-        <div className="child-wrapper">
-          { child }
-        </div>
-      </GenericErrorBoundary>
-    );
-  });
-
-  return (
-    <div>
-      { childrenSection }
-    </div>
   );
 };
 
