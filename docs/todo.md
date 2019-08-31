@@ -1,17 +1,16 @@
 packages and setup:
 todo:
+* repeatability:
+  * have a setup script
+  * have a teardown script
+  * Add the directory where this is done to the .gitignore
+
 * Get a web rendering component that shows the error handling
   * Handling getDerivedStateFromError
 
 * src/webapp/index.js
   * Is there a more elegant way to handle the pathing to get the kataComponent?
   * Is dependancy injection worth using here, or is it just an anti pattern?
-
-* clean up the index.js code:
-  * put the app component into it's own file
-  * put tests into their own files
-  * put tests into a seperate directory
-  * Find a way to make the tests more pleasing structure wise? They feel wrong
 
 * cleaning up the html and css of the test page
   * Just make a drawing, showing a slightly better layout
