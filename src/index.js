@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./index.css"
 
 import KataComponent from "./kataComponent.js";
 
@@ -106,11 +107,13 @@ class TestThree extends React.Component{
         this.setState({ wasCleanupCalled : true });
       }
     };
+    
+    const cleanupClassName = this.state.wasCleanupCalled ? "green" : "red";
 
     return (
       <React.Fragment>
         <p> This component needs to be constantly mounting and unmounting the component </p>
-        <p> was cleanup called : { this.state.wasCleanupCalled ? "Yes" : "No" } </p>
+        <p className={cleanupClassName}> was cleanup called : { this.state.wasCleanupCalled ? "Yes" : "No" } </p>
         { this.state.shouldMount ?  <KataComponent connection={actualConnection} /> : <div> Component Unmounted </div> }
       </React.Fragment>
     );
@@ -164,7 +167,6 @@ const App = ( { children } ) => {
         <div className="child-wrapper">
           { child }
         </div>
-        <hr />
       </React.Fragment>
     );
   });

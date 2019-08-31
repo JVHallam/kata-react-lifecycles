@@ -1,9 +1,9 @@
 packages and setup:
 todo:
-* Change the index.js file so that a bunch of shit can be rendered to the dom, visually explaining each test.
-* Get a guide written, alongside the entire situation
-
+* Wrap all components in error boundaries!
+  * It currently doesn't render without default props
+* Write one more guide:
+  * Covering the structure of the output function
+  * covering the exported methods
 * Get the readme written
-
-## rendering situations to the browser:
-
+* Do the do, delete the component and try from scratch to do your own exercises!

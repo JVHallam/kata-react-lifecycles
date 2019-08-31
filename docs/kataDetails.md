@@ -17,12 +17,14 @@ The component will expect the following props:
 * sessionId { string }
 * connection
   * fetchDetails { async function( sessionId ) } - returns a string, that should be rendered to the dom once returned
+    * Should be called to initially fetch the users details
   * cleanup { async function( sessionId ) } - returns nothing, expected to be called when component is removed from the dom
+    * should be called when the element is removed from the dom
   * reportError { async function( errorString ) } - return nothing, report any errors that are thrown by child elements
+    * should only be called when errors occur
 
 ## Handling children:
 All children of the element should render into the dom, as subcomponent of the current component.
-
 
 # Guide:
 methods required:
@@ -77,4 +79,4 @@ methods required:
   * `Hello ${username}`, where username is what's returned from fetchDetails
   * If a child component throws an error, that error should be displayed instead
 
-* All children of the component should be displayed
+* All children of the component should be displayed, unless there's an error, in which case, render nothing
