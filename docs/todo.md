@@ -1,9 +1,13 @@
 packages and setup:
 todo:
+* testing:
+  * Now that we have multiple files, use a jest "BeforeAllTests" setup file to setup enzyme
+
 * repeatability:
   * have a setup script
   * have a teardown script
   * Add the directory where this is done to the .gitignore
+  * move the kataComponent.js file to be somewhere for test purposes only, it feels silly re-writing it every time i need it.
 
 * Get a web rendering component that shows the error handling
   * Handling getDerivedStateFromError
