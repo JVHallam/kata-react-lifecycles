@@ -1,5 +1,5 @@
 import React from "react";
-import KataComponent from "../src/kataComponent.js";
+import KataComponent from "../index.js";
 import Enzyme, { shallow, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
