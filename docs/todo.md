@@ -5,6 +5,8 @@ todo:
 
 * repeatability:
   * have a setup script
+    * creates the directory, if it doesn't already exist
+    * copies the files across
   * have a teardown script
   * Add the directory where this is done to the .gitignore
   * move the kataComponent.js file to be somewhere for test purposes only, it feels silly re-writing it every time i need it.
