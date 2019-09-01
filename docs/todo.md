@@ -3,11 +3,6 @@ todo:
 * testing:
   * Now that we have multiple files, use a jest "BeforeAllTests" setup file to setup enzyme
 
-* repeatability:
-  * have a teardown script
-  * make sure the tests work with a file in the practise directory
-  * make sure the webapp runs with a file in the practise directory
-
 * Get a web rendering component that shows the error handling
   * Handling getDerivedStateFromError
 
@@ -24,3 +19,6 @@ todo:
 * try to encorporate more of the react functions
   * React.children.map( children, () => {} );
     * Wrap each child in an li or someshit, rendering that shit into a list
+
+  * default props
+  * props types
