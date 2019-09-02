@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css"
 
-import KataComponent from "../kataComponent.js";
+import KataComponent from "../../index.js";
 import App from "./components/App.js";
 
 //This is dirty, there has to be a cleaner way?

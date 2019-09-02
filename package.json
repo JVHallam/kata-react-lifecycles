@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "setup" : "node scripts/setup.js",
-    "cleanup" : "node scripts/cleanup.js"
+    "cleanup" : "node scripts/cleanup.js",
+    "utility" : "webpack-dev-server"
   },
   "keywords": [],
   "author": "",
