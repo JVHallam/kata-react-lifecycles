@@ -48,7 +48,7 @@ Just do the above, don't call for error reports anywhere else.
 
 ## Expect the element to display the error, when an error is thrown
 * static getDerivedStateFromError( error )
-  * In this function, error is a string. In componentDidCatch, it is an error object?
+  * In this function, error is an error object. Don't render it into the dom, render error.message
 * return the new state
 * render the message from the updated state, into the dom
 
