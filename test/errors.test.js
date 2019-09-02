@@ -33,7 +33,7 @@ describe("Testing how the component handles errors", () => {
     );
 
     const child = wrapper.find( ProblemGen );
-    child.simulateError( errorMessage );
+    child.simulateError( new Error( errorMessage ) );
 
     process.nextTick( () => {
       done();
@@ -73,7 +73,7 @@ describe("Testing how the component handles errors", () => {
     );
 
     const child = wrapper.find( ProblemGen );
-    child.simulateError( errorMessage );
+    child.simulateError( new Error( errorMessage ) );
 
     process.nextTick( () => {
       const message = wrapper.find( "#message" ).text();
