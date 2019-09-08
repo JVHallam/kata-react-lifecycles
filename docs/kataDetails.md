@@ -26,6 +26,10 @@ The component will expect the following props:
 ## Handling children:
 All children of the element should render into the dom, as subcomponent of the current component.
 
+## Default props
+The application will crash if you try to render the component that doesn't have any props given to it.
+Typically, because i will be trying to call a function that doesn't exist.
+
 # Guide:
 methods required:
 * componentDidMount

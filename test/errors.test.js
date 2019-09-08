@@ -21,10 +21,8 @@ describe("Testing how the component handles errors", () => {
       fetchDetails : async () => "John",
       cleanup : async() => {},
       reportError : ( error ) => {
-        expect(1).toBe(1);
       }
     };    
-
 
     const wrapper = mount(
       <KataComponent connection={connection}>
@@ -49,9 +47,11 @@ describe("Testing how the component handles errors", () => {
 
     const wrapper = mount( <KataComponent connection={connection} /> );
 
+    //Why are we testing cleanup here?! Surely this should be reportError
     expect( connection.cleanup.mock.calls.length ).toBe( 0 );
 
     process.nextTick( () => {
+      //Why are we testing cleanup here?! Surely this should be reportError
       expect( connection.cleanup.mock.calls.length ).toBe( 0 );
       done();
     });

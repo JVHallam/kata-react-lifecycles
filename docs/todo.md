@@ -1,10 +1,26 @@
 packages and setup:
 todo:
+* errors tests aren't actually working as intended:
+  * When the user experiences an error, they must report it to the server
+  * There's no test, testing for this
+  * There's no test, testing to make sure the function is called
+
 * testing:
   * Now that we have multiple files, use a jest "BeforeAllTests" setup file to setup enzyme
 
 * Get a web rendering component that shows the error handling
   * Handling getDerivedStateFromError
+
+* HTTP API:
+  * Let's be real, if you're using react, you're most likely making api calls
+  * Make a Stream Generator-like function that fetches from an api
+  * Have it use an actual HTTP api on the front end
+  * Use dependancy injection so that i can detach the http api stream from 
+    the actual fetch api.
+  * This is used in another project, find it, implement it, bring it over here.
+
+* Error boundaries:
+  * Could always make it a thing that wraps the children and is a thing, in and of itself
 
 * src/webapp/index.js
   * Is there a more elegant way to handle the pathing to get the kataComponent?
@@ -15,6 +31,9 @@ todo:
   * create an html page showing this layout
   * adapt the react components to follow this exact layout
   * Have an Example output next to the actual output. How else am i supposed to do this shit?
+  * If the component fails to render, make the box displaying the question
+    * turn red if it fails to render
+    * Stay white if it renders without a problem
 
 * try to encorporate more of the react functions
   * React.children.map( children, () => {} );
