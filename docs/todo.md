@@ -20,7 +20,11 @@ todo:
   * This is used in another project, find it, implement it, bring it over here.
 
 * Error boundaries:
+  * This could actually be a component in and of itself, that's tested individually
+  * Could use React.Children.map to wrap each child individually, so that only the problem child doesn't render
+  * Render the rest of the children
   * Could always make it a thing that wraps the children and is a thing, in and of itself
+  * Could wrap each child individually 
 
 * src/webapp/index.js
   * Is there a more elegant way to handle the pathing to get the kataComponent?
