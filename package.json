@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "setup" : "node scripts/setup.js",
-    "cleanup" : "node scripts/cleanup.js",
-    "utility" : "webpack-dev-server"
+    "kata" : "kata-scripts",
+    "setup": "kata-scripts setup",
+    "cleanup": "kata-scripts cleanup",
+    "utility": "webpack-dev-server"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "html-webpack-plugin": "^3.2.0",
+    "kata-scripts": "^1.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "style-loader": "^1.0.0"
@@ -29,5 +31,11 @@
   "devDependencies": {
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7"
+  },
+  "config": {
+    "kata": {
+      "exec_area_path": "practise",
+      "resources_path": "./src/templates"
+    }
   }
 }

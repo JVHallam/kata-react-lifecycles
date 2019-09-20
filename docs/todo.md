@@ -25,6 +25,7 @@ todo:
   * Render the rest of the children
   * Could always make it a thing that wraps the children and is a thing, in and of itself
   * Could wrap each child individually 
+  * Why would the parent component not show the username, when they're logged in, because of an error? why not just have the child errors be contained?
 
 * src/webapp/index.js
   * Is there a more elegant way to handle the pathing to get the kataComponent?
