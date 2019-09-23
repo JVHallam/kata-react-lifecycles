@@ -17,6 +17,7 @@ describe("Testing the component handles will mount situations", () => {
 
     //Wait until component did update has been called
     process.nextTick( () => {
+      //Expect fetchDetails to be called, after the component has been mounted
       expect( connection.fetchDetails.mock.calls.length ).toBe( 1 );
       done();
     });
@@ -33,9 +34,11 @@ describe("Testing the component handles will mount situations", () => {
     process.nextTick( () => {
       const message = wrapper.find('#message');
 
+      //Expect the <p id="message"> element to contain the username that's returned from fetchDetails
       expect( message.text() ).toMatch( new RegExp(username) );
-      expect( message.text() ).not.toMatch( /logging/ );
 
+      //Expect the words "logging in" to now be removed from the element
+      expect( message.text() ).not.toMatch( /logging/ );
       done();
     });
   });

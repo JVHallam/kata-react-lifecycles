@@ -16,9 +16,11 @@ describe("Testing that the component can properly handle children", () => {
     );
 
     const testChild = wrapper.find("#test-child");
+
+    //Expect it to only render the number of children given to it.
     expect( wrapper.find("#test-4").length ).toBe( 0 );
 
-
+    //Expect there to only be one '#test-child' element rendered
     expect( testChild.length ).toBe( 1 );
   });
 });

@@ -13,10 +13,14 @@ describe("Testing that the component handles unmounting gracefully", () => {
     };
 
     const wrapper = mount( <KataComponent connection={connection} /> );
+
+    //Expect cleanup to NOT be called before the dismount
     expect( connection.cleanup.mock.calls.length ).toBe( 0 );
 
     process.nextTick( () => {
       wrapper.unmount();
+
+      //Expect connection.cleanup to be called, on dismount
       expect( connection.cleanup.mock.calls.length ).toBe( 1 );
       done();  
     });

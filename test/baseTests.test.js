@@ -20,7 +20,11 @@ describe("Testing the Kata Components will mount", () => {
   it("Check that the basic component renders", () => {
     const wrapper = mount( <KataWrapper /> );
     const message = wrapper.find('#message');
+
+    //Check that the basic component renders the <p id="message"> child, with a value
     expect( message ).not.toBe( null );
+
+    //Expect the message in <p id="message">, to say something like "logging in"
     expect( message.text() ).toMatch( /logging/i );
   });
 });

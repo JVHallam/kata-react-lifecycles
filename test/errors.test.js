@@ -47,12 +47,12 @@ describe("Testing how the component handles errors", () => {
 
     const wrapper = mount( <KataComponent connection={connection} /> );
 
-    //Why are we testing cleanup here?! Surely this should be reportError
-    expect( connection.cleanup.mock.calls.length ).toBe( 0 );
+    //We're not calling reportError if an error hasn't actually occured yet 
+    expect( connection.reportError.mock.calls.length ).toBe( 0 );
 
     process.nextTick( () => {
-      //Why are we testing cleanup here?! Surely this should be reportError
-      expect( connection.cleanup.mock.calls.length ).toBe( 0 );
+      //We're not calling reportError, if there's no errors being thrown
+      expect( connection.reportError.mock.calls.length ).toBe( 0 );
       done();
     });
   });
@@ -77,6 +77,8 @@ describe("Testing how the component handles errors", () => {
 
     process.nextTick( () => {
       const message = wrapper.find( "#message" ).text();
+
+      //Expect the error that's thrown to be shown in the <p id="message"> element
       expect( message ).toMatch( new RegExp( errorMessage ) );
       done();
     });
